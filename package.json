@@ -47,6 +47,7 @@
     "!*/__tests__"
   ],
   "dependencies": {
+    "@loopback/authentication": "^1.0.15",
     "@loopback/boot": "^1.1.0",
     "@loopback/context": "^1.7.0",
     "@loopback/core": "^1.1.8",
@@ -55,6 +56,7 @@
     "@loopback/rest": "^1.8.0",
     "@loopback/rest-explorer": "^1.1.11",
     "@loopback/service-proxy": "^1.0.10",
+    "jsonwebtoken": "^8.5.1",
     "loopback-connector-mongodb": "^4.0.0"
   },
   "devDependencies": {
@@ -62,6 +64,8 @@
     "@loopback/testlab": "^1.1.0",
     "@loopback/tslint-config": "^2.0.2",
     "@types/node": "^10.11.2",
+    "@types/passport": "^1.0.0",
+    "@types/passport-http": "^0.3.7",
     "tslint": "^5.12.0",
     "typescript": "^3.3.1"
   }
