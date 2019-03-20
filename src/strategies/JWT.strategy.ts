@@ -12,7 +12,8 @@ export class JWTStrategy implements AuthenticationStrategy {
     public jwt_authentication_service: JWTAuthenticationService,
   ) { }
   async authenticate(request: Request): Promise<UserProfile | undefined> {
-    let token = request.headers['authorization'];
+    const headers = (request.headers as any) || {};
+    let token = headers['access_token'];
     if (!token) throw new HttpErrors.Unauthorized('No access token found!');
 
     if (token.startsWith('Bearer ')) {

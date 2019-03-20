@@ -23,7 +23,7 @@ export class LoginController {
     }
     const getusers = await this.userRepo.findOne({ where: { email: user.email, password: user.password } });
     if (getusers) {
-      return { 'token': await this.jwtAuthenticationService.getAccessToken({ id: getusers.id }) };
+      return { 'access_token': await this.jwtAuthenticationService.getAccessToken({ id: getusers.id }) };
     } else {
       throw new HttpErrors.BadRequest('email or password not match');
     }

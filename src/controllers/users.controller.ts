@@ -11,14 +11,18 @@ import {
 } from '@loopback/authentication';
 
 export class UsersController {
-  reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
   constructor(@repository(UsersRepository) protected userRepo: UsersRepository,
     @inject(AuthenticationBindings.CURRENT_USER) private users: UserProfile,
   ) { }
 
   @authenticate('jwtStrategy')
   @get('/users')
-  async getUser(@param.header.string('authorization') authorization: string, ) {
+  async getUser(@param({
+    name: 'access_token',
+    in: 'header',
+    required: true,
+    schema: { type: 'string' },
+  }) access_token: string, ) {
     const getusers = await this.userRepo.findOne({ where: { id: this.users.id } });
     if (getusers) {
       delete getusers.password;
@@ -29,7 +33,12 @@ export class UsersController {
 
   @authenticate('jwtStrategy')
   @patch('/users')
-  async update(@param.header.string('authorization') authorization: string,
+  async update(@param({
+    name: 'access_token',
+    in: 'header',
+    required: true,
+    schema: { type: 'string' },
+  }) access_token: string,
     @requestBody() user: UserUpdate) {
 
     if (!user.name) {
@@ -40,7 +49,12 @@ export class UsersController {
 
   @authenticate('jwtStrategy')
   @del('/users')
-  async delete(@param.header.string('authorization') authorization: string) {
+  async delete(@param({
+    name: 'access_token',
+    in: 'header',
+    required: true,
+    schema: { type: 'string' },
+  }) access_token: string, ) {
     return await this.userRepo.deleteById(this.users.id);
   }
 
